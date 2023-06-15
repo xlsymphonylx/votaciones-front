@@ -1,15 +1,22 @@
 <template>
   <v-container>
-    <v-card-title class="text-center">Registro de Denuncia</v-card-title>
+    <v-card-title class="text-center">Registro de Datos</v-card-title>
 
-    <v-form @submit.prevent="submitForm" ref="reportFormRef">
+    <v-form @submit.prevent="submitForm" ref="dataFormRef">
       <v-file-input
-        v-model="reportPhoto"
-        label="Foto del Reporte"
+        v-model="dataPhoto"
+        label="Foto del Certificado"
         accept="image/*"
         show-size
         :rules="photoRules"
       ></v-file-input>
+      <v-select
+        v-model="certificateType"
+        :items="certificateTypes"
+        label="Tipo de Certificado"
+        :rules="certificateTypeRules"
+        required
+      ></v-select>
 
       <v-textarea
         v-model="description"
@@ -27,14 +34,19 @@
 <script setup>
 import { ref } from "vue";
 
-const reportPhoto = ref(null);
+const certificateTypes = ["Papeleta", "Dummy 1", "Dummy 2"]; // Add dummy data here
+
+const certificateType = ref(null);
+const dataPhoto = ref(null);
 const description = ref("");
-const reportFormRef = ref(null);
+const dataFormRef = ref(null);
+
+const certificateTypeRules = [(value) => !!value || "El tipo es requerido"];
 
 const photoRules = [
   (value) => {
     if (!description.value) {
-      return !!value || "La foto del reporte es requerida";
+      return !!value || "La foto es requerida";
     }
     return true;
   },
@@ -42,7 +54,7 @@ const photoRules = [
 
 const descriptionRules = [
   (value) => {
-    if (!reportPhoto.value) {
+    if (!dataPhoto.value) {
       return !!value || "La descripción es requerida";
     }
     return true;
@@ -54,17 +66,18 @@ const descriptionRules = [
 ];
 
 async function submitForm() {
-  const isValid = await reportFormRef.value.validate();
+  const isValid = await dataFormRef.value.validate();
 
   if (isValid) {
-    if (!reportPhoto.value && !description.value) {
+    if (!dataPhoto.value && !description.value) {
       // Both fields are empty, show an error or prevent form submission
       console.log("Error: Both fields are empty");
       return;
     }
 
     // Handle form submission
-    console.log("Report Photo:", reportPhoto.value);
+    console.log("Certificate Type:", certificateType.value);
+    console.log("Data Photo:", dataPhoto.value);
     console.log("Description:", description.value);
     // You can perform further actions like uploading the photo or saving the data
   }
