@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, defineProps } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 
 const props = defineProps({
   report: {
@@ -37,7 +37,6 @@ const props = defineProps({
       link: "examplecdn.com/img=234323a.jpg",
     }),
   },
-  
 });
 
 const isMobile = ref(false);
@@ -79,7 +78,7 @@ const desktopItems = [
   },
 ];
 
-const cardTitle = props.report.typeName
+const cardTitle = props.report.typeName;
 </script>
 
 <style scoped>
