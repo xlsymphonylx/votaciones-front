@@ -6,7 +6,7 @@
         <v-form @submit.prevent="login" ref="loginFormRef">
           <v-text-field
             id="username"
-            v-model="user"
+            v-model="username"
             label="Usuario"
             type="text"
             :rules="userRules"
@@ -30,8 +30,9 @@
 
 <script setup>
 import { ref } from "vue";
+const emit = defineEmits(["login"]);
 const loginFormRef = ref(null);
-const user = ref("");
+const username = ref("");
 const password = ref("");
 const userRules = [
   (v) => !!v || "El nombre de usuario es obligatorio",
@@ -45,13 +46,9 @@ const passwordRules = [
 ];
 async function login() {
   const { valid } = await loginFormRef.value.validate();
-
   if (valid) {
-    console.log("Logging in...");
-    console.log("User:", user.value);
-    console.log("Password:", password.value);
-
-    // Add your login logic here
+    // Emit the 'login' event with the username and password values
+    emit("login", { username: username.value, password: password.value });
   }
 }
 </script>

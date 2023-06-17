@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-card-title class="text-center">Registro de Denuncia</v-card-title>
+    <v-card-title class="text-center">{{ getTitle }}</v-card-title>
 
     <v-form @submit.prevent="submitForm" ref="reportFormRef">
       <v-file-input
@@ -18,15 +18,19 @@
       ></v-textarea>
 
       <div class="mt-5 text-center">
-        <v-btn type="submit" color="primary">Enviar</v-btn>
+        <v-btn type="submit" color="primary">Registrar</v-btn>
+        <v-btn @click="cancelForm" color="error" class="ml-3">Cancelar</v-btn>
+        <!-- Add cancel button -->
       </div>
     </v-form>
   </v-container>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { useRouter } from "vue-router";
 
+const route = useRouter();
 const reportPhoto = ref(null);
 const description = ref("");
 const reportFormRef = ref(null);
@@ -69,4 +73,24 @@ async function submitForm() {
     // You can perform further actions like uploading the photo or saving the data
   }
 }
+
+const reportTypeId = computed(() => {
+  return route.currentRoute._value.params.reportType;
+});
+// Computed property to dynamically set the card title based on the reportType
+const getTitle = computed(() => {
+  const reportType = Number(reportTypeId.value);
+  if (reportType === 1) {
+    return "Registro de Acta Impugnación";
+  } else if (reportType === 2) {
+    return "Registro de Denuncia";
+  } else if (reportType === 3) {
+    return "Registro de Acta Escrutinio";
+  }
+  return ""; // Return a default title or handle other cases if needed
+});
+
+const cancelForm = () => {
+  route.push({ name: "Home" }); // Navigate back to the home page or the "Home" route
+};
 </script>
