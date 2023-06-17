@@ -5,9 +5,12 @@ components: {
 }
 </script>
 <template>
-  <div class="main-login">
-    <login-form />
-  </div>
+  <v-app class="main-login">
+    <v-app-bar app>
+      <v-toolbar-title class="text-center" style="font-size: 1.5rem; font-weight: bold;">SISFIVOT</v-toolbar-title>
+    </v-app-bar>
+    <login-form @login="" style="margin-top: 14rem" />
+  </v-app>
 </template>
 
 <style scoped>
