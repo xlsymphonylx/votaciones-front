@@ -18,11 +18,12 @@
       <v-col cols="12" md="4">
         <menu-card
           link="/reportes/3"
-          cardTitle="ACTA FINAL DE ESCRUTINIO"
-          description="Ingreso de Acta Final de Escrutinio"
+          cardTitle="ACTA DE ESCRUTINIO"
+          description="Ingreso de Acta de Escrutinio"
         />
       </v-col>
     </v-row>
+    <search-filters></search-filters>
     <list-filters />
     <list-grid></list-grid>
   </v-container>
@@ -32,4 +33,5 @@
 import ListFilters from "@/components/ListFilters.vue";
 import ListGrid from "@/components/ListGrid.vue";
 import MenuCard from "@/components/MenuCard.vue";
+import SearchFilters from "@/components/SearchFilters.vue";
 </script>
