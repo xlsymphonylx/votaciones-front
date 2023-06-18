@@ -1,21 +1,22 @@
 <template>
   <v-container fluid>
-    <v-row>
-      <v-col cols="12" md="4">
+    <v-row
+    justify="space-around">
+      <v-col cols="12" md="12" lg="auto">
         <menu-card
           link="/reportes/1"
           cardTitle="ACTA DE IMPUGNACION"
           description="Ingreso de Acta de Impugnacion"
         />
       </v-col>
-      <v-col cols="12" md="4">
+      <v-col cols="12" md="12" lg="auto">
         <menu-card
           link="/reportes/2"
           cardTitle="DENUNCIA"
           description="Ingreso de Acta de Denuncia"
         />
       </v-col>
-      <v-col cols="12" md="4">
+      <v-col cols="12" md="12" lg="auto">
         <menu-card
           link="/reportes/3"
           cardTitle="ACTA DE ESCRUTINIO"

@@ -2,10 +2,10 @@
     <div class="mt-5">
       <v-row
         justify="center"
-        class="button-row"
+        class="search-row"
         :style="{ flexWrap: flexWrapValue }"
       >
-        <v-col cols="12" md="auto">
+        <v-col cols="12" lg="auto" md="auto" sm="auto"  class="search-column">
             <div class="text-center">
             <v-select
                 class="filter-width filter-height"
@@ -21,7 +21,7 @@
             ></v-select>
             </div>
         </v-col>
-        <v-col cols="12" md="auto">
+        <v-col cols="12" lg="auto" md="auto" sm="auto"  class="search-column">
             <div class="text-center">
             <v-select
                 class="filter-width filter-height"
@@ -36,7 +36,7 @@
             ></v-select>
             </div>
         </v-col>     
-        <v-col cols="12" md="auto">
+        <v-col cols="12" lg="auto" md="auto" sm="auto"  class="search-column">
           <div class="text-center">
             <v-btn
                 color="primary"
@@ -114,7 +114,7 @@
     margin-bottom: 16px;
   }
   
-  .button-row {
+  .search-row {
     justify-content: space-around !important;
     margin: 0 auto;
     max-width: 600px;
@@ -122,6 +122,7 @@
   
   .filter-width, .button-width {
     width: 100%;
+    min-width: 220px;
   }
 
   .filter-height {
@@ -130,5 +131,11 @@
   .fixed-width {
     width: 200px; /* Adjust the width as needed */
   }
+
+  @media only screen and (max-width: 770px) {
+  .search-column {
+    width: 100%;
+  }
+}
   </style>
   

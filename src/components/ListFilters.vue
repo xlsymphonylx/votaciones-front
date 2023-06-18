@@ -6,7 +6,7 @@
       class="button-row"
       :style="{ flexWrap: flexWrapValue }"
     >
-      <v-col cols="12" md="auto" v-for="button in buttons" :key="button.id">
+      <v-col cols="12" lg="auto" md="auto" sm="auto" class="button-column" v-for="button in buttons" :key="button.id">
         <div class="text-center">
           <v-btn
             color="primary"
@@ -26,6 +26,7 @@
 import { ref, watchEffect } from "vue";
 
 const emit = defineEmits(["filter"]);
+
 
 const flexWrapValue = ref("nowrap");
 const buttons = [
@@ -70,9 +71,16 @@ const filterHandler = (id) => {
 
 .button-width {
   width: 100%;
+  min-width: 200px;
 }
 
 .fixed-width {
   width: 200px; /* Adjust the width as needed */
+}
+
+@media only screen and (max-width: 770px) {
+  .button-column {
+    width: 100%;
+  }
 }
 </style>
