@@ -34,6 +34,7 @@ const route = useRouter();
 const reportPhoto = ref(null);
 const description = ref("");
 const reportFormRef = ref(null);
+const emit = defineEmits(["register"]);
 
 const photoRules = [
   (value) => {
@@ -57,23 +58,6 @@ const descriptionRules = [
     "Solo se permiten caracteres alfanuméricos, puntuación y espacios",
 ];
 
-async function submitForm() {
-  const isValid = await reportFormRef.value.validate();
-
-  if (isValid) {
-    if (!reportPhoto.value && !description.value) {
-      // Both fields are empty, show an error or prevent form submission
-      console.log("Error: Both fields are empty");
-      return;
-    }
-
-    // Handle form submission
-    console.log("Report Photo:", reportPhoto.value);
-    console.log("Description:", description.value);
-    // You can perform further actions like uploading the photo or saving the data
-  }
-}
-
 const reportTypeId = computed(() => {
   return route.currentRoute._value.params.reportType;
 });
@@ -93,4 +77,22 @@ const getTitle = computed(() => {
 const cancelForm = () => {
   route.push({ name: "Home" }); // Navigate back to the home page or the "Home" route
 };
+
+async function submitForm() {
+  const isValid = await reportFormRef.value.validate();
+
+  if (isValid) {
+    if (!reportPhoto.value && !description.value) {
+      // Both fields are empty, show an error or prevent form submission
+      console.log("Error: Both fields are empty");
+      return;
+    }
+    emit("register", {
+      description: description.value,
+      image: reportPhoto.value[0],
+      reportTypeId: reportTypeId.value,
+    });
+    // You can perform further actions like uploading the photo or saving the data
+  }
+}
 </script>

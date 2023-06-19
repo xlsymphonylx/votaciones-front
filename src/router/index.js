@@ -25,7 +25,7 @@ const routes = [
           import(/* webpackChunkName: "home" */ "@/views/Report.vue"),
       },
     ],
-    meta: { requiresAuth: false }, // Add meta field for authentication requirement
+    meta: { requiresAuth: true }, // Add meta field for authentication requirement
   },
   {
     path: "/login",
@@ -40,7 +40,7 @@ const router = createRouter({
 });
 // Navigation guard
 router.beforeEach((to, from, next) => {
-  const pToken = localStorage.getItem("pToken");
+  const pToken = localStorage.getItem("token");
   const isAuthenticated = pToken !== null;
   console.log(to.meta.requiresAuth);
   if (to.meta.requiresAuth && !isAuthenticated) {
