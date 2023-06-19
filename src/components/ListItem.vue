@@ -1,7 +1,7 @@
 <template>
   <v-card class="custom-card" outlined>
     <div class="custom-card-header text-center">
-      <h3 class="custom-card-title">{{ cardTitle }}</h3>
+      <h3 class="custom-card-title">{{ report.ReportType.name }}</h3>
     </div>
     <v-container fluid>
       <v-row v-if="isMobile">
@@ -53,17 +53,21 @@
         </v-col>
         <v-col cols="4">
           <h4 class="custom-subtitle">Mesa</h4>
-          <div class="custom-content">{{ report.tableName || "No asignado" }}</div>
+          <div class="custom-content">
+            {{ report.tableName || "No asignado" }}
+          </div>
         </v-col>
         <v-col cols="4">
           <h4 class="custom-subtitle">Fecha</h4>
-          <div class="custom-content">{{ report.createdAt }}</div>
+          <div class="custom-content">
+            {{ formatDateTime(report.createdAt) }}
+          </div>
         </v-col>
         <v-col cols="4">
           <h4 class="custom-subtitle">Ver</h4>
           <div class="custom-content">
             <a :href="report.link" target="_blank"
-              ><span class="mdi mdi-eye mdi-32px"></span
+              ><span class="mdi mdi-eye mdi-26px"></span
             ></a>
           </div>
         </v-col>
@@ -105,7 +109,19 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("resize", handleResize);
 });
+const formatDateTime = (datetime) => {
+  const options = {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  };
 
+  const formattedDateTime = new Date(datetime).toLocaleString("es-ES", options);
+  return formattedDateTime;
+};
 const cardTitle = props.report.typeName;
 </script>
 
@@ -121,7 +137,7 @@ const cardTitle = props.report.typeName;
 }
 
 .custom-card-title {
-  color: #428bca;
+  color: black;
   margin: 0;
 }
 

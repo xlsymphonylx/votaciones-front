@@ -2,10 +2,11 @@
   <v-card class="horizontal-card" outlined @click="navigateToLink">
     <v-row align="center" no-gutters>
       <v-col cols="auto" class="ml-3">
-        <span class="mdi mdi-camera" v-if="!logoutMode"></span>
+        <span class="mdi mdi-camera" v-if="!logoutMode && !userMode"></span>
+        <span class="mdi mdi-file-account" v-else-if="userMode"></span>
         <span class="mdi mdi-logout" v-else></span>
       </v-col>
-      <v-col>
+      <v-col cols="auto" class="ml-3">
         <v-card-text v-if="!logoutMode">
           <h3 class="headline">{{ cardTitle }}</h3>
           <p class="body-1">{{ description }}</p>
@@ -41,6 +42,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  userMode: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const router = useRouter();
@@ -56,8 +61,9 @@ function navigateToLink() {
   margin: 16px;
 }
 
-.mdi-camera,.mdi-logout  {
+.mdi-camera,
+.mdi-logout,
+.mdi-file-account {
   font-size: 48px;
 }
-
 </style>
