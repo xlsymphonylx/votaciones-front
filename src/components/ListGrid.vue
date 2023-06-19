@@ -1,8 +1,19 @@
 <template>
   <v-container class="list-container">
-    <v-row>
-      <v-col cols="12" md="6" v-for="(item, index) in items" :key="index">
+    <v-row v-if="hasItems">
+      <v-col cols="12" md="6" v-for="(item, index) in reports" :key="index">
         <list-item :report="item" />
+      </v-col>
+    </v-row>
+    <v-row v-else>
+      <v-col cols="12">
+        <h3
+          class="text-center border border-dark round m-3"
+          style="padding: 1rem"
+        >
+          No hay reportes registrados.
+        </h3>
+        <!-- Empty message in Spanish -->
       </v-col>
     </v-row>
   </v-container>
@@ -10,50 +21,19 @@
 
 <script setup>
 import ListItem from "@/components/ListItem.vue";
+import { computed } from "vue";
+const props = defineProps({
+  reports: {
+    type: Array,
+    default: () => [],
+    required: false,
+  },
+});
 
-const items = [
-  // Example data objects
-  {
-    id: 1,
-    description: "Example 1",
-    userName: "User 1",
-    tableName: "Table 1",
-    createdAt: "2022-01-01",
-    link: "example.com/img1.jpg",
-  },
-  {
-    id: 2,
-    description: "Example 2",
-    userName: "User 2",
-    tableName: "Table 2",
-    createdAt: "2022-02-02",
-    link: "example.com/img2.jpg",
-  },
-  {
-    id: 3,
-    description: "Example 3",
-    userName: "User 3",
-    tableName: "Table 3",
-    createdAt: "2022-03-03",
-    link: "example.com/img3.jpg",
-  },
-  {
-    id: 4,
-    description: "Example 4",
-    userName: "User 4",
-    tableName: "Table 4",
-    createdAt: "2022-04-04",
-    link: "example.com/img4.jpg",
-  },
-  {
-    id: 5,
-    description: "Example 5",
-    userName: "User 5",
-    tableName: "Table 5",
-    createdAt: "2022-05-05",
-    link: "example.com/img5.jpg",
-  },
-];
+// Computed property to check if items array is empty
+const hasItems = computed(() => {
+  return props.reports.length > 0;
+});
 </script>
 
 <style scoped>

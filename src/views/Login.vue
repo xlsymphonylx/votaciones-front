@@ -1,15 +1,45 @@
 <script setup>
 import LoginForm from "@/components/LoginForm.vue";
+import { login } from "../services/authService";
+import { useRouter } from "vue-router";
 components: {
   LoginForm;
 }
+const router = useRouter();
+const loginUser = async ({ username, password }) => {
+  try {
+    const {
+      token,
+      centerName,
+      municipalityName,
+      municipalityVoters,
+      centerVoters,
+      roleId,
+    } = await login(username, password);
+    localStorage.setItem("token", token);
+    localStorage.setItem("roleId", roleId);
+    if (roleId === 1) {
+      localStorage.setItem("centerName", centerName);
+      localStorage.setItem("municipalityName", municipalityName);
+      localStorage.setItem("municipalityVoters", municipalityVoters);
+      localStorage.setItem("centerVoters", centerVoters);
+    }
+    router.push("/");
+  } catch (error) {
+    console.error("Login failed", error);
+  }
+};
 </script>
 <template>
   <v-app class="main-login">
     <v-app-bar app>
-      <v-toolbar-title class="text-center" style="font-size: 1.5rem; font-weight: bold;">SISFIVOT</v-toolbar-title>
+      <v-toolbar-title
+        class="text-center"
+        style="font-size: 1.5rem; font-weight: bold"
+        >SISFIVOT</v-toolbar-title
+      >
     </v-app-bar>
-    <login-form @login="" style="margin-top: 14rem" />
+    <login-form @login="loginUser" style="margin-top: 14rem" />
   </v-app>
 </template>
 

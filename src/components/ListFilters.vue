@@ -53,7 +53,7 @@ watchEffect(() => {
 });
 
 const filterHandler = (id) => {
-  emit("filter", id);
+  emit("filter", { reportTypeId: id });
 };
 </script>
 

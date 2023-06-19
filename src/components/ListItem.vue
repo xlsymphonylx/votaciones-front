@@ -5,15 +5,67 @@
     </div>
     <v-container fluid>
       <v-row v-if="isMobile">
-        <v-col cols="12" v-for="(item, index) in mobileItems" :key="index">
-          <h4 class="custom-subtitle">{{ item.title }}</h4>
-          <div class="custom-content" v-html="item.content"></div>
+        <v-col cols="12">
+          <h4 class="custom-subtitle">Numero</h4>
+          <div class="custom-content">{{ report.id }}</div>
+        </v-col>
+        <v-col cols="12">
+          <h4 class="custom-subtitle">Descripcion</h4>
+          <div class="custom-content">{{ report.description }}</div>
+        </v-col>
+        <v-col cols="12">
+          <h4 class="custom-subtitle">Usuario</h4>
+          <div class="custom-content">
+            {{ `${report.User.firstName} ${report.User.lastName}` }}
+          </div>
+        </v-col>
+        <v-col cols="12">
+          <h4 class="custom-subtitle">Mesa</h4>
+          <div class="custom-content">{{ report.tableName || "" }}</div>
+        </v-col>
+        <v-col cols="12">
+          <h4 class="custom-subtitle">Fecha</h4>
+          <div class="custom-content">{{ report.createdAt }}</div>
+        </v-col>
+        <v-col cols="12">
+          <h4 class="custom-subtitle">Ver</h4>
+          <div class="custom-content">
+            <a :href="report.link" target="_blank"
+              ><span class="mdi mdi-eye mdi-24px"></span
+            ></a>
+          </div>
         </v-col>
       </v-row>
       <v-row v-else>
-        <v-col cols="4" v-for="(item, index) in desktopItems" :key="index">
-          <h4 class="custom-subtitle">{{ item.title }}</h4>
-          <div class="custom-content" v-html="item.content"></div>
+        <v-col cols="4">
+          <h4 class="custom-subtitle">Numero</h4>
+          <div class="custom-content">{{ report.id }}</div>
+        </v-col>
+        <v-col cols="4">
+          <h4 class="custom-subtitle">Descripcion</h4>
+          <div class="custom-content">{{ report.description }}</div>
+        </v-col>
+        <v-col cols="4">
+          <h4 class="custom-subtitle">Usuario</h4>
+          <div class="custom-content">
+            {{ `${report.User.firstName} ${report.User.lastName}` }}
+          </div>
+        </v-col>
+        <v-col cols="4">
+          <h4 class="custom-subtitle">Mesa</h4>
+          <div class="custom-content">{{ report.tableName || "No asignado" }}</div>
+        </v-col>
+        <v-col cols="4">
+          <h4 class="custom-subtitle">Fecha</h4>
+          <div class="custom-content">{{ report.createdAt }}</div>
+        </v-col>
+        <v-col cols="4">
+          <h4 class="custom-subtitle">Ver</h4>
+          <div class="custom-content">
+            <a :href="report.link" target="_blank"
+              ><span class="mdi mdi-eye mdi-32px"></span
+            ></a>
+          </div>
         </v-col>
       </v-row>
     </v-container>
@@ -53,30 +105,6 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("resize", handleResize);
 });
-
-const mobileItems = [
-  { title: "Numero", content: props.report.id },
-  { title: "Descripcion", content: props.report.description },
-  { title: "Usuario", content: props.report.userName },
-  { title: "Mesa", content: props.report.tableName },
-  { title: "Fecha", content: props.report.createdAt },
-  {
-    title: "Ver",
-    content: `<a href="${props.report.link}" target="_blank"><span class="mdi mdi-eye mdi-24px"></span></a>`,
-  },
-];
-
-const desktopItems = [
-  { title: "Numero", content: props.report.id },
-  { title: "Descripcion", content: props.report.description },
-  { title: "Usuario", content: props.report.userName },
-  { title: "Mesa", content: props.report.tableName },
-  { title: "Fecha", content: props.report.createdAt },
-  {
-    title: "Ver",
-    content: `<a href="${props.report.link}" target="_blank"><span class="mdi mdi-eye mdi-36px"></span></a>`,
-  },
-];
 
 const cardTitle = props.report.typeName;
 </script>
