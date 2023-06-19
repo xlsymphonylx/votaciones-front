@@ -8,18 +8,18 @@
           description="Ingreso de Acta de Impugnacion"
         />
       </v-col>
-      <v-col cols="12" md="4">
+      <v-col cols="12" md="12" lg="auto">
         <menu-card
           link="/reportes/2"
           cardTitle="DENUNCIA"
           description="Ingreso de Acta de Denuncia"
         />
       </v-col>
-      <v-col cols="12" md="4">
+      <v-col cols="12" md="12" lg="auto">
         <menu-card
           link="/reportes/3"
-          cardTitle="ACTA FINAL DE ESCRUTINIO"
-          description="Ingreso de Acta Final de Escrutinio"
+          cardTitle="ACTA DE ESCRUTINIO"
+          description="Ingreso de Acta de Escrutinio"
         />
       </v-col>
       <v-col cols="12" md="4">
