@@ -1,10 +1,10 @@
 <script setup>
 import UserForm from "@/components/UserForm.vue";
-import { login } from "../services/authService";
 import { getAllRoles } from "../services/roleService";
 import { getAllVotingCenters } from "../services/votingCenterService";
 import { useRouter } from "vue-router";
 import { reactive, onMounted } from "vue";
+import { register } from "@/services/authService";
 
 components: {
   UserForm;
@@ -20,36 +20,49 @@ const getRoles = async () => {
   try {
     const { roles: data } = await getAllRoles();
     state.roles = data;
-    console.log("=====", state.roles)
   } catch (error) {}
 };
 
-const getVotingCenters = async (municipalityId) => {
+const getVotingCenters = async () => {
   try {
-    const { votingCenters: data } = await getAllVotingCenters(municipalityId);
+    const { votingCenters: data } = await getAllVotingCenters();
     state.votingCenters = data;
   } catch (error) {}
 };
 
-
-const registerUser = async ({ firstName, lastName, username, password, roleId, centerVoters }) => {
+const registerUser = async ({
+  firstName,
+  lastName,
+  username,
+  password,
+  roleId,
+  votingCenterId,
+}) => {
   try {
-    const {
-      token
-    } = await registerUser(firstName, lastName, username, password, roleId, centerVoters);
-    localStorage.setItem("token", token);
-    localStorage.setItem("roleId", roleId);
-    router.push("/");
+    await register(
+      firstName,
+      lastName,
+      username,
+      password,
+      roleId,
+      votingCenterId
+    );
   } catch (error) {
     console.error("Login failed", error);
   }
 };
 
 onMounted(getRoles);
+onMounted(getVotingCenters);
 </script>
 <template>
   <v-container fluid>
-    <user-form @register="registerUser" :roles="state.roles" style="margin-top: 14rem" />
+    <user-form
+      @register="registerUser"
+      :roles="state.roles"
+      :voting-centers="state.votingCenters"
+      style="margin-top: 2rem"
+    />
   </v-container>
 </template>
 
@@ -58,6 +71,5 @@ onMounted(getRoles);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 50rem;
 }
 </style>

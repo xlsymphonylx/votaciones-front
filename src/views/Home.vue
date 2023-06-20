@@ -50,6 +50,22 @@
         />
       </v-col>
     </v-row>
+    <div
+      class="mt-5 container-padding"
+      style="padding: 1rem"
+      v-if="roleId === 1"
+    >
+      <v-form @submit.prevent="updateTableName" ref="updateTableFormRef">
+        <v-text-field
+          v-model="tableName"
+          label="Nombre De Mesa"
+          type="text"
+          :rules="tableNameRules"
+          required
+        ></v-text-field>
+        <v-btn type="submit" color="primary" block>Registar</v-btn>
+      </v-form>
+    </div>
     <search-filters
       v-if="roleId === 2"
       :municipalities="state.municipalities"
@@ -67,6 +83,7 @@ import { onMounted, ref, reactive } from "vue";
 import { getAll } from "../services/reportService";
 import { getAllMunicipalities } from "../services/municipalityService";
 import { getAllVotingCenters } from "../services/votingCenterService";
+import { updateTable } from "../services/authService";
 import ListFilters from "@/components/ListFilters.vue";
 import SearchFilters from "@/components/SearchFilters.vue";
 import ListGrid from "@/components/ListGrid.vue";
@@ -74,9 +91,11 @@ import MenuCard from "@/components/MenuCard.vue";
 
 const roleId = ref(null);
 const tableName = ref(null);
+const updateTableFormRef = ref(null);
+
 const tableNameRules = [
-  (v) =>
-    /^[a-zA-Z0-9]+$/.test(v) || "Solo se permiten caracteres alfanuméricos",
+  (v) => !!v || "El nombre es obligatorio",
+  (v) => /^[a-zA-Z]+$/.test(v) || "Solo se permiten caracteres alfanuméricos",
   (v) => v.length <= 20 || "La longitud máxima es de 20 caracteres",
 ];
 const state = reactive({
@@ -123,7 +142,14 @@ const getVotingCenters = async (municipalityId) => {
     state.votingCenters = data;
   } catch (error) {}
 };
-
+const updateTableName = async () => {
+  const { valid } = await updateTableFormRef.value.validate();
+  if (valid) {
+    try {
+      await updateTable(tableName.value);
+    } catch (error) {}
+  }
+};
 onMounted(getRoleIdFromLocalStorage);
 onMounted(getMunicipalities);
 </script>

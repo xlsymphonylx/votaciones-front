@@ -54,7 +54,7 @@
         <v-col cols="4">
           <h4 class="custom-subtitle">Mesa</h4>
           <div class="custom-content">
-            {{ report.tableName || "No asignado" }}
+            {{ report.User.tableName ? report.User.tableName : "No Asignado" }}
           </div>
         </v-col>
         <v-col cols="4">

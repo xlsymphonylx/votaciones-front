@@ -34,7 +34,7 @@ const routes = [
           import(/* webpackChunkName: "home" */ "@/views/UserForm.vue"),
       },
     ],
-    // meta: { requiresAuth: true }, // Add meta field for authentication requirement
+    meta: { requiresAuth: true }, // Add meta field for authentication requirement
   },
   {
     path: "/login",
