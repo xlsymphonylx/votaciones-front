@@ -24,8 +24,16 @@ const loginUser = async ({ username, password }) => {
       localStorage.setItem("municipalityVoters", municipalityVoters);
       localStorage.setItem("centerVoters", centerVoters);
     }
+    await window.Swal.fire({
+      icon: "success",
+      title: "Exito",
+      text: "Registro Exitoso",
+      showConfirmButton: false,
+      timer: 1500,
+    });
     router.push("/");
   } catch (error) {
+    window.Swal.fire("Error", "Error Interno de Servidor", "error");
     console.error("Login failed", error);
   }
 };

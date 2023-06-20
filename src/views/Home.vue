@@ -126,28 +126,43 @@ const getReports = async ({ reportTypeId, votingCenterId }) => {
   try {
     const { reports: data } = await getAll(votingCenterId, reportTypeId);
     state.reports = data;
-  } catch (error) {}
+  } catch (error) {
+    window.Swal.fire("Error", "Error Interno de Servidor", "error");
+  }
 };
 
 const getMunicipalities = async () => {
   try {
     const { municipalities: data } = await getAllMunicipalities();
     state.municipalities = data;
-  } catch (error) {}
+  } catch (error) {
+    window.Swal.fire("Error", "Error Interno de Servidor", "error");
+  }
 };
 
 const getVotingCenters = async (municipalityId) => {
   try {
     const { votingCenters: data } = await getAllVotingCenters(municipalityId);
     state.votingCenters = data;
-  } catch (error) {}
+  } catch (error) {
+    window.Swal.fire("Error", "Error Interno de Servidor", "error");
+  }
 };
 const updateTableName = async () => {
   const { valid } = await updateTableFormRef.value.validate();
   if (valid) {
     try {
       await updateTable(tableName.value);
-    } catch (error) {}
+      window.Swal.fire({
+        icon: "success",
+        title: "Exito",
+        text: "Registro Exitoso",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (error) {
+      window.Swal.fire("Error", "Error Interno de Servidor", "error");
+    }
   }
 };
 onMounted(getRoleIdFromLocalStorage);

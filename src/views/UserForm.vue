@@ -47,7 +47,10 @@ const registerUser = async ({
       roleId,
       votingCenterId
     );
+    await window.Swal.fire("Exito", "Registro Exitoso", "success");
+    router.push({ name: "Home" }); // Navigate back to the home page or the "Home" route
   } catch (error) {
+    window.Swal.fire("Error", "Error Interno de Servidor", "error");
     console.error("Login failed", error);
   }
 };
