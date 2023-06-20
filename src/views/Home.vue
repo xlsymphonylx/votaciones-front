@@ -51,6 +51,7 @@
       </v-col>
     </v-row>
     <search-filters
+      v-if="roleId === 2"
       :municipalities="state.municipalities"
       :votingCenters="state.votingCenters"
       @municipalityFilter="getVotingCenters"
