@@ -7,7 +7,7 @@
           <v-text-field
             id="firstName"
             v-model="firstName"
-            label="Primer Nombre"
+            label="Nombre"
             type="text"
             :rules="firstNameRules"
             required
@@ -15,7 +15,7 @@
           <v-text-field
             id="lastName"
             v-model="lastName"
-            label="Primer Apellido"
+            label="Apellido"
             type="text"
             :rules="lastNameRules"
             required
@@ -55,7 +55,7 @@
           ></v-autocomplete>
           <div class="text-center mt-2">
             <v-btn type="submit" color="primary" block>Registar</v-btn>
-            <v-btn @click="cancelForm" color="error" class="ml-3"
+            <v-btn @click="cancelForm" color="error" class="mt-3" block
               >Cancelar</v-btn
             >
           </div>

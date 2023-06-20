@@ -20,7 +20,6 @@
       <div class="mt-5 text-center">
         <v-btn type="submit" color="primary">Registrar</v-btn>
         <v-btn @click="cancelForm" color="error" class="ml-3">Cancelar</v-btn>
-        <!-- Add cancel button -->
       </div>
     </v-form>
   </v-container>
@@ -38,7 +37,7 @@ const emit = defineEmits(["register"]);
 
 const photoRules = [
   (value) => {
-    if (!description.value) {
+    if (!reportPhoto.value && !description.value) {
       return !!value || "La foto del reporte es requerida";
     }
     return true;
@@ -47,14 +46,13 @@ const photoRules = [
 
 const descriptionRules = [
   (value) => {
-    if (!reportPhoto.value) {
+    if (!reportPhoto.value && !description.value) {
       return !!value || "La descripción es requerida";
     }
     return true;
   },
-  (value) => value.length <= 250 || "La longitud máxima es de 250 caracteres",
   (value) =>
-    /^[a-zA-Z0-9\s.,?!]+$/.test(value) ||
+    /^[a-zA-Z0-9\s.,?!ñÑ]+$/.test(value) ||
     "Solo se permiten caracteres alfanuméricos, puntuación y espacios",
 ];
 
@@ -89,7 +87,7 @@ async function submitForm() {
     }
     emit("register", {
       description: description.value,
-      image: reportPhoto.value[0],
+      image: reportPhoto.value ? reportPhoto.value[0] : null,
       reportTypeId: reportTypeId.value,
     });
     // You can perform further actions like uploading the photo or saving the data

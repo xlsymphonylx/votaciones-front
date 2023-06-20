@@ -21,18 +21,23 @@
         </v-col>
         <v-col cols="12">
           <h4 class="custom-subtitle">Mesa</h4>
-          <div class="custom-content">{{ report.tableName || "" }}</div>
+          <div class="custom-content">
+            {{ report.User.tableName ? report.User.tableName : "No Asignado" }}
+          </div>
         </v-col>
         <v-col cols="12">
           <h4 class="custom-subtitle">Fecha</h4>
-          <div class="custom-content">{{ report.createdAt }}</div>
+          <div class="custom-content">
+            {{ formatDateTime(report.createdAt) }}
+          </div>
         </v-col>
         <v-col cols="12">
           <h4 class="custom-subtitle">Ver</h4>
           <div class="custom-content">
-            <a :href="report.link" target="_blank"
-              ><span class="mdi mdi-eye mdi-24px"></span
-            ></a>
+            <span
+              class="mdi mdi-eye mdi-24px"
+              @click="viewImage(report.link)"
+            ></span>
           </div>
         </v-col>
       </v-row>
@@ -66,9 +71,10 @@
         <v-col cols="4">
           <h4 class="custom-subtitle">Ver</h4>
           <div class="custom-content">
-            <a :href="report.link" target="_blank"
-              ><span class="mdi mdi-eye mdi-26px"></span
-            ></a>
+            <span
+              class="mdi mdi-eye mdi-26px"
+              @click="viewImage(report.link)"
+            ></span>
           </div>
         </v-col>
       </v-row>
@@ -78,7 +84,8 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
-
+import { useRouter } from "vue-router";
+const router = useRouter();
 const props = defineProps({
   report: {
     type: Object,
@@ -121,6 +128,11 @@ const formatDateTime = (datetime) => {
 
   const formattedDateTime = new Date(datetime).toLocaleString("es-ES", options);
   return formattedDateTime;
+};
+
+const viewImage = (link) => {
+  console.log(link);
+  router.push({ name: "ViewImg", params: { imgUrl: link } }); // Navigate back to the home page or the "Home" route
 };
 const cardTitle = props.report.typeName;
 </script>

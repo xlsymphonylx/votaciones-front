@@ -1,6 +1,6 @@
 import axios from "axios";
 import { appUrl } from "./config";
-const token = localStorage.getItem("token"); // Get the token from local storage
+
 export const login = async (username, password) => {
   try {
     const { data } = await axios.post(`${appUrl}/auth/login`, {
@@ -45,6 +45,8 @@ export const register = async (
 };
 export const updateTable = async (tableName) => {
   try {
+    const token = localStorage.getItem("token"); // Get the token from local storage|
+
     const { data } = await axios.patch(
       `${appUrl}/auth/updateTableName`,
       {

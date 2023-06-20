@@ -4,8 +4,8 @@
       <v-col cols="12" md="12" lg="auto">
         <menu-card
           link="/reportes/1"
-          cardTitle="ACTA DE IMPUGNACION"
-          description="Ingreso de Acta de Impugnacion"
+          cardTitle="ACTA IMPUGNACION"
+          description="Ingreso de Acta Impugnacion"
         />
       </v-col>
       <v-col cols="12" md="12" lg="auto">
@@ -95,7 +95,8 @@ const updateTableFormRef = ref(null);
 
 const tableNameRules = [
   (v) => !!v || "El nombre es obligatorio",
-  (v) => /^[a-zA-Z]+$/.test(v) || "Solo se permiten caracteres alfanuméricos",
+  (v) =>
+    /^[a-zA-Z0-9]+$/.test(v) || "Solo se permiten caracteres alfanuméricos",
   (v) => v.length <= 20 || "La longitud máxima es de 20 caracteres",
 ];
 const state = reactive({
