@@ -35,7 +35,7 @@
     <v-row v-else justify="center" align="center">
       <v-col cols="12" md="6" lg="6">
         <menu-card
-          link="/reportes/3"
+          link="/userform"
           cardTitle="AGREGAR USUARIO"
           description="Ingreso de Usuario"
           userMode
