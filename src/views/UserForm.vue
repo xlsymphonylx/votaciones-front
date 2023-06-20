@@ -4,15 +4,32 @@ import { login } from "../services/authService";
 import { getAllRoles } from "../services/roleService";
 import { getAllVotingCenters } from "../services/votingCenterService";
 import { useRouter } from "vue-router";
-import { provide } from "vue";
+import { reactive, onMounted } from "vue";
 
 components: {
   UserForm;
 }
 const router = useRouter();
-const roles = getAllRoles();
-const votingCenters = getAllVotingCenters();
 
+const state = reactive({
+  roles: [],
+  votingCenters: [],
+});
+
+const getRoles = async () => {
+  try {
+    const { roles: data } = await getAllRoles();
+    state.roles = data;
+    console.log("=====", state.roles)
+  } catch (error) {}
+};
+
+const getVotingCenters = async (municipalityId) => {
+  try {
+    const { votingCenters: data } = await getAllVotingCenters(municipalityId);
+    state.votingCenters = data;
+  } catch (error) {}
+};
 
 
 const registerUser = async ({ firstName, lastName, username, password, roleId, centerVoters }) => {
@@ -28,12 +45,11 @@ const registerUser = async ({ firstName, lastName, username, password, roleId, c
   }
 };
 
-provide("roles", roles);
-provide("votingCenters", votingCenters);
+onMounted(getRoles);
 </script>
 <template>
   <v-container fluid>
-    <user-form @register="registerUser" style="margin-top: 14rem" />
+    <user-form @register="registerUser" :roles="state.roles" style="margin-top: 14rem" />
   </v-container>
 </template>
 

@@ -38,15 +38,21 @@
             <v-select
               v-model="roleId"
               label="Rol"
-              :items="roles"
-              type="password"
+              :items="props.roles"
+              item-value="id"
+              item-title="name"
+              :v-text="name"
+              name="name"
+              :rules="roleIdRules"
               required
             ></v-select>
             <v-select
               v-model="votingCenterId"
               label="Centro de votación"
-              :items="votingCenters"
-              type="password"
+              item-value="id"
+              item-title="name"
+              name="name"
+              :rules="votingCenterIdRules"
               required
             ></v-select>
             <div class="text-center mt-2">
@@ -62,15 +68,21 @@
   import { inject, ref } from "vue";
 
   const roles = inject("roles");
-  const votingCenters = inject("votingCenters");
   const emit = defineEmits(["register"]);
   const registerFormRef = ref(null);
   const username    = ref("");
   const firstName   = ref("");
   const lastName    = ref("");
   const password    = ref("");
-  const votingCenterId    = ref("");
-  const roleId    = ref("");
+  const votingCenterId    = ref(null);
+  const roleId    = ref(null);
+
+  const props = defineProps({
+  roles: {
+    type: Array,
+    default: () => [],
+  },
+});
 
   const userRules = [
     (v) => !!v || "El nombre de usuario es obligatorio",
@@ -96,6 +108,12 @@
   const passwordRules = [
     (v) => !!v || "La contraseña es obligatoria",
     (v) => v.length <= 20 || "La longitud máxima es de 20 caracteres",
+  ];
+  const votingCenterIdRules = [
+    (v) => !!v || "El centro de votación obligatorio",
+  ];
+  const roleIdRules = [
+    (v) => !!v || "El rol obligatorio",
   ];
   async function register() {
     const { valid } = await registerFormRef.value.validate();
