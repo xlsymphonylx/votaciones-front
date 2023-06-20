@@ -4,6 +4,8 @@ import { login } from "../services/authService";
 import { getAllRoles } from "../services/roleService";
 import { getAllVotingCenters } from "../services/votingCenterService";
 import { useRouter } from "vue-router";
+import { provide } from "vue";
+
 components: {
   UserForm;
 }
@@ -25,10 +27,13 @@ const registerUser = async ({ firstName, lastName, username, password, roleId, c
     console.error("Login failed", error);
   }
 };
+
+provide("roles", roles);
+provide("votingCenters", votingCenters);
 </script>
 <template>
   <v-container fluid>
-    <user-form @register="registerUser" @roles="roles" @votingCenters="votingCenters" style="margin-top: 14rem" />
+    <user-form @register="registerUser" style="margin-top: 14rem" />
   </v-container>
 </template>
 

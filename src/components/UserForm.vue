@@ -59,13 +59,18 @@
   </template>
   
   <script setup>
-  import { ref } from "vue";
+  import { inject, ref } from "vue";
+
+  const roles = inject("roles");
+  const votingCenters = inject("votingCenters");
   const emit = defineEmits(["register"]);
   const registerFormRef = ref(null);
   const username    = ref("");
   const firstName   = ref("");
   const lastName    = ref("");
   const password    = ref("");
+  const votingCenterId    = ref("");
+  const roleId    = ref("");
 
   const userRules = [
     (v) => !!v || "El nombre de usuario es obligatorio",
@@ -92,13 +97,20 @@
     (v) => !!v || "La contraseña es obligatoria",
     (v) => v.length <= 20 || "La longitud máxima es de 20 caracteres",
   ];
-//   async function login() {
-//     const { valid } = await loginFormRef.value.validate();
-//     if (valid) {
-//       // Emit the 'login' event with the username and password values
-//       emit("login", { username: username.value, password: password.value });
-//     }
-//   }
+  async function register() {
+    const { valid } = await registerFormRef.value.validate();
+    if (valid) {
+      // Emit the 'login' event with the username and password values
+      emit("register", { 
+        username: username.value, 
+        password: password.value, 
+        firstName: firstName.value, 
+        lastName: lastName.value,
+        votingCenterId: votingCenterId.value,
+        roleId: roleId.value,
+    });
+    }
+  }
   </script>
   
   <style>
