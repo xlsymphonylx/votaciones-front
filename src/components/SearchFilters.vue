@@ -1,7 +1,8 @@
 <template>
-  <div class="mt-5 container-padding">
+  <div class="mt-5 mb-5 container-padding">
+    <h2 class="text-center mb-2 mt-2">Filtros de Reportes</h2>
     <v-row justify="center" class="search-row">
-      <v-col cols="12" md="4" class="search-column">
+      <v-col cols="12" md="4">
         <div class="text-center">
           <v-select
             v-model="municipality"
@@ -14,7 +15,19 @@
           ></v-select>
         </div>
       </v-col>
-      <v-col cols="12" md="4" class="search-column">
+      <v-col cols="12" md="4">
+        <div class="text-center">
+          <v-select
+            v-model="reportTypeId"
+            :items="reportTypes"
+            class="filter-width filter-height"
+            label="Tipo de Reporte"
+            item-value="id"
+            variant="solo-filled"
+          ></v-select>
+        </div>
+      </v-col>
+      <v-col cols="12" md="4">
         <div class="text-center">
           <v-autocomplete
             v-model="votingCenter"
@@ -26,10 +39,8 @@
           ></v-autocomplete>
         </div>
       </v-col>
-      <v-col cols="12" md="4" class="search-column">
-        <v-btn color="primary" class="button-width" @click="searchReports"
-          >Buscar</v-btn
-        >
+      <v-col cols="12" md="4">
+        <v-btn color="primary" @click="searchReports" block>Buscar</v-btn>
       </v-col>
     </v-row>
     <h3 class="text-center">{{ municipalityVoters }}</h3>
@@ -42,6 +53,7 @@ import { ref, watchEffect, computed } from "vue";
 const emit = defineEmits(["municipalityFilter", "search"]);
 const municipality = ref(null);
 const votingCenter = ref(null);
+const reportTypeId = ref(null);
 
 const municipalityVoters = computed(() => {
   if (municipality.value) {
@@ -58,16 +70,27 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
-  reportTypeId: {
-    type: Number,
-    default: null,
-  },
 });
 
+const reportTypes = [
+  {
+    title: "Actas de Impugnación",
+    id: 1,
+  },
+  {
+    title: "Denuncias",
+    id: 2,
+  },
+  {
+    title: "Actas de Escrutinio",
+    id: 3,
+  },
+];
+
 const searchReports = () => {
-  if (votingCenter.value) {
+  if (votingCenter.value || reportTypeId.value) {
     emit("search", {
-      reportTypeId: null,
+      reportTypeId: reportTypeId.value,
       votingCenterId: votingCenter.value,
     });
   }
@@ -98,27 +121,4 @@ watchEffect(() => {
 });
 </script>
 
-<style scoped>
-.button-width {
-  width: 100% !important;
-  height: 72%;
-}
-.container-padding {
-  padding: 1rem;
-}
-@media (max-width: 599px) {
-  .search-row {
-    flex-direction: column;
-  }
-
-  .search-column {
-    margin-bottom: 10px;
-  }
-
-  .button-width {
-    width: 100%;
-    min-width: 200px;
-    padding: 1rem;
-  }
-}
-</style>
+<style scoped></style>

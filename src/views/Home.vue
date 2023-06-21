@@ -73,7 +73,7 @@
       @municipalityFilter="getVotingCenters"
       @search="getReports"
     ></search-filters>
-    <list-filters @filter="getReports" />
+    <list-filters @filter="getReports" v-if="roleId === 1"/>
     <list-grid :reports="state.reports"></list-grid>
   </v-container>
 </template>
@@ -116,7 +116,7 @@ const logout = () => {
   localStorage.removeItem("centerName");
   localStorage.removeItem("municipalityName");
   localStorage.removeItem("municipalityVoters");
-  localStorage.removeItem("centerVotingId");
+  localStorage.removeItem("centerVoters");
   localStorage.removeItem("roleId");
 
   // Redirect to the login page
