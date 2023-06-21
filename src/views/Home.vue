@@ -116,7 +116,7 @@ const logout = () => {
   localStorage.removeItem("centerName");
   localStorage.removeItem("municipalityName");
   localStorage.removeItem("municipalityVoters");
-  localStorage.removeItem("centerVoters");
+  localStorage.removeItem("centerVotingId");
   localStorage.removeItem("roleId");
 
   // Redirect to the login page
