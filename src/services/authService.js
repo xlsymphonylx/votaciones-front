@@ -23,7 +23,7 @@ export const register = async (
   username,
   password,
   roleId,
-  centerVoterId
+  votingCenterId
 ) => {
   try {
     const { data } = await axios.post(`${appUrl}/auth/register`, {
@@ -32,7 +32,7 @@ export const register = async (
       username,
       password,
       roleId,
-      centerVoterId,
+      votingCenterId,
     });
     return data;
   } catch (error) {
