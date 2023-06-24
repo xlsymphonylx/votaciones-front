@@ -79,12 +79,15 @@
         </v-col>
       </v-row>
     </v-container>
+    <img-dialog ref="imgDialog"></img-dialog>
   </v-card>
 </template>
 
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
 import { useRouter } from "vue-router";
+import ImgDialog from "./ImgDialog.vue";
+
 const router = useRouter();
 const props = defineProps({
   report: {
@@ -103,6 +106,7 @@ const props = defineProps({
 });
 
 const isMobile = ref(false);
+const imgDialog = ref(null);
 
 const handleResize = () => {
   isMobile.value = window.innerWidth <= 768;
@@ -131,10 +135,8 @@ const formatDateTime = (datetime) => {
 };
 
 const viewImage = (link) => {
-  console.log(link);
-  router.push({ name: "ViewImg", params: { imgUrl: link } }); // Navigate back to the home page or the "Home" route
+  imgDialog.value.openDialog(link);
 };
-const cardTitle = props.report.typeName;
 </script>
 
 <style scoped>

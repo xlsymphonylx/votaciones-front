@@ -82,7 +82,6 @@ async function submitForm() {
   if (isValid) {
     if (!reportPhoto.value && !description.value) {
       // Both fields are empty, show an error or prevent form submission
-      console.log("Error: Both fields are empty");
       return;
     }
     emit("register", {

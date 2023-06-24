@@ -34,7 +34,6 @@ const loginUser = async ({ username, password }) => {
     router.push("/");
   } catch (error) {
     window.Swal.fire("Error", "Error Interno de Servidor", "error");
-    console.error("Login failed", error);
   }
 };
 </script>
